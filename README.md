@@ -20,20 +20,22 @@ team
 
 Such a project structure is common for teams working on BitBucket. Every
 repository is technically an independent git repo. If you use another
-remote git client, you can anyways organize different repos in projects
+remote git client you can anyways organize different repos in projects
 under a team root. Note that a team root is characterized by a directory
 having a `.team` file.
 
 # README structuring
 
 teamtools suggests that a repository’s description is stored in
-`.description`. This may be used in the Rmd README by placing `r
-teamtools::read_local_description()` (enclosed in backticks) to import
-anywhere in the description into the README. You can use markdown syntax
-in the `.description` as this will be placed into the README as is
-before compiled with Pandoc.
+`.description`. Such a description is a concise statement about what the
+content / goal of the repository is. This description may be used in the
+Rmd README by placing `r
+teamtools::read_and_markdown_description_files()` (enclosed in back
+ticks) anywhere in the README to import the description. You can use
+markdown syntax in the `.description` as this will be placed into the
+README as is before compiled with Pandoc.
 
-The following descritpion was generated with the command mentioned
+The following description was generated with the command mentioned
 above:
 
 ## This is a header
@@ -57,5 +59,28 @@ easily retrieve all descriptions from all repos in all projects with
 teamtools::read_description_files()
 ```
 
-Note taht this works if your current working directory is *any*
+``` r
+#> # A tibble: 3 x 3
+#>   repo      project   desc                                                                                          
+#>   <chr>     <chr>     <chr>                                                                                         
+#> 1 titanic   companion "In this repo, the famous ...
+#> 2 meta      meta      "This is a \nmultiline des...
+#> 3 sandbox84 meta      sandbox to try how things ...
+```
+
+Note that this works if your current working directory is *any*
 directory under the team root.
+
+In the future, we aim to support files other than `.description` to
+represent other meta data.
+
+# Utilities
+
+There are a bunch of other utility functions.
+
+``` r
+find_repo_root()
+find_team_root()
+read_description_file("project-1", "repository-1")
+read_local_description()
+```
