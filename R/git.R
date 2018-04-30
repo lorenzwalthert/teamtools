@@ -51,7 +51,8 @@ git_dirs <- function(dir = ".") {
 #' @seealso [check_unpushed_files()]
 team_check_unpushed <- function(dir = ".") {
   remote_diff <- map(git_dirs(find_team_root(dir)), check_unpushed_files) %>%
-    flatten_chr()
+    compact()  %>%
+    flatten_dfr()
   if (length(remote_diff) < 1L) {
     cli::cat_line("Current branches even with upstreams", col = "green")
   } else {
@@ -60,7 +61,7 @@ team_check_unpushed <- function(dir = ".") {
       "the current branches are not even with upstreams:",
       col = "red"
     )
-    cli::cat_bullet(remote_diff)
+   remote_diff
   }
 }
 
@@ -71,14 +72,73 @@ team_check_unpushed <- function(dir = ".") {
 #' @importFrom git2r branches repository
 #' @export
 #' @seealso [team_check_unpushed()]
-check_unpushed_files <- function(dir) {
+check_unpushed_files <- function(dir = ".") {
   if (length(branches(repository(dir))) > 0) {
     file <- withr::with_dir(dir,
       system("git diff master remotes/origin/master --name-only",
         intern = TRUE
     ))
-    file.path(dir, file)
+    if (length(file) < 1L) return(NULL)
+    tibble(file, dir)
   } else {
-    character(0)
+    NULL
   }
+}
+
+
+
+
+#' Check all repositories in a team for uncommitted changes
+#' @importFrom purrr map flatten_dfr compact
+#' @param dir Any directory under the team root.
+#' @export
+#' @seealso [check_unpushed_files()]
+team_check_uncomitted <- function(dir = ".") {
+
+  remote_diff <- map(git_dirs(find_team_root(dir)), check_uncomitted_files) %>%
+    compact() %>%
+    flatten_dfr()
+  if (length(remote_diff) < 1L) {
+    cli::cat_line("HEADs up to date with INDEXs", col = "green")
+  } else {
+    cli::cat_line(
+      "For the follwing files of ",
+      "the current branche tips are not identical to their INDEX counterpart:",
+      col = "red"
+    )
+   remote_diff
+  }
+}
+
+
+#' Check a directory for uncomitted changes
+#'
+#' @param dir A directory to check for unpushed changes.
+#' @importFrom git2r repository status
+#' @export
+#' @seealso [team_check_unpushed()]
+check_uncomitted_files <- function(dir = ".") {
+
+  if (length(branches(repository(dir))) > 0) {
+    status <- status(repository(dir))
+    unstaged <- tibble(
+      file = set_null_to(unlist(status$unstaged), character(0)),
+      type = "unstaged"
+    )
+    staged <- tibble(
+      file = set_null_to(unlist(status$staged), character(0)),
+      type = "staged"
+    )
+    untracked <- tibble(
+      file = set_null_to(unlist(status$untracked), character(0)),
+      type = "untracked"
+    )
+    out <- rbind(unstaged, staged, untracked) %>%
+      as.tibble() %>%
+      add_column(dir = dir)
+    if (nrow(out) < 1L) return(NULL)
+  } else {
+    out <- NULL
+  }
+  out
 }

@@ -20,4 +20,5 @@ Imports:
     tibble,
     magrittr,
     withr,
-    git2r
+    git2r,
+    remotes
