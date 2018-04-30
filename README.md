@@ -24,8 +24,8 @@ having a `.team` file.
 
 # git
 
-`teamtools` helps you to check all repos for uncomitted or staged
-changes and untracked files. I.e. it does a git status accross all your
+`teamtools` helps you to check all repos for uncommitted or staged
+changes and untracked files. I.e. it does a git status across all your
 repos in your team.
 
 ``` r
