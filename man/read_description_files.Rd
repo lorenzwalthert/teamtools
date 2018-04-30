@@ -4,11 +4,7 @@
 \alias{read_description_files}
 \title{Read all description files into a tabular format}
 \usage{
-read_description_files(projects = NULL)
-}
-\arguments{
-\item{projects}{A character vector with projects to include. If \code{NULL},
-all projects will be returned.}
+read_description_files()
 }
 \description{
 Read all description files into a tabular format

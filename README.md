@@ -1,6 +1,4 @@
 
-[![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
-
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 # teamtools
@@ -30,13 +28,15 @@ teamtools suggests that a repository’s description is stored in
 `.description`. Such a description is a concise statement about what the
 content / goal of the repository is. This description may be used in the
 Rmd README by placing `r
-teamtools::read_and_markdown_description_files()` (enclosed in back
-ticks) anywhere in the README to import the description. You can use
-markdown syntax in the `.description` as this will be placed into the
-README as is before compiled with Pandoc.
+teamtools::read_and_markdown_description_files(category = "repo")`
+(enclosed in back ticks) anywhere in the README to import the
+description. You can use markdown syntax in the `.description` as this
+will be placed into the README as is before compiled with Pandoc.
+Projects can also have such descriptions, and they can be read with the
+above command, setting `category = "project"`.
 
-The following description was generated with the command mentioned
-above:
+The following description for repos was generated with the command
+mentioned above:
 
 ## This is a header
 

@@ -2,13 +2,13 @@
 % Please edit documentation in R/convert.R
 \name{read_and_markdown_description_files}
 \alias{read_and_markdown_description_files}
-\title{Read descirption files and convert them to markdown}
+\title{Read descirption files from a project and convert them to markdown}
 \usage{
-read_and_markdown_description_files(projects = NULL)
+read_and_markdown_description_files(category = "repo")
 }
 \arguments{
-\item{projects}{A character vector with projects to include. If \code{NULL},
-all projects will be returned.}
+\item{category}{Character vector indicating which categories should be read.
+Can be "repo" or "project" or both.}
 }
 \description{
 Reads description files and put them from a tabular format into a
