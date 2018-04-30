@@ -22,6 +22,46 @@ remote git client you can anyways organize different repos in projects
 under a team root. Note that a team root is characterized by a directory
 having a `.team` file.
 
+# git
+
+`teamtools` helps you to check all repos for uncomitted or staged
+changes and untracked files. I.e. it does a git status accross all your
+repos in your team.
+
+``` r
+teamtools::team_check_uncomitted()
+#> For the follwing files of the current branch tips are not identical to their INDEX counterpart:
+#> # A tibble: 1 x 3
+#>   file             type     dir                                                                                   
+#>   <chr>            <chr>    <chr>                                                                                 
+#> 1 pull-all-draft.R unstaged /Users/lorenz/datasciencecoursera/learning-real-estate-price-structures/meta/sandbox84
+```
+
+You may also want to know which repos’ active branch are out of sync
+with their remote counterpart.
+
+``` r
+teamtools::team_check_unpushed()
+#> For the follwing files of the current branches are not even with upstreams:
+#> # A tibble: 2 x 2
+#>   file       dir                                                                              
+#>   <chr>      <chr>                                                                            
+#> 1 README.Rmd /Users/lorenz/datasciencecoursera/learning-real-estate-price-structures/meta/meta
+#> 2 README.md  /Users/lorenz/datasciencecoursera/learning-real-estate-price-structures/meta/meta
+```
+
+You can also pull from and push all team repos to their default remote
+branch with `teamtools::team_push()` and `teamtools::team_pull()`.
+
+``` r
+teamtools::team_pull()
+#> Try pulling lessons-learned ✔ 
+#> Try pulling titanic ✔ 
+#> Try pulling data ✔ 
+#> Try pulling meta ✔ 
+#> Try pulling sandbox84 [updated] 85e6da1024..71818fdb5a refs/remotes/origin/master ✔ 
+```
+
 # README structuring
 
 teamtools suggests that a repository’s description is stored in
@@ -60,12 +100,13 @@ teamtools::read_description_files()
 ```
 
 ``` r
-#> # A tibble: 3 x 3
-#>   repo      project   desc                                                                                          
-#>   <chr>     <chr>     <chr>                                                                                         
-#> 1 titanic   companion "In this repo, the famous ...
-#> 2 meta      meta      "This is a \nmultiline des...
-#> 3 sandbox84 meta      sandbox to try how things ...
+#>  # A tibble: 8 x 4
+#>  project   repo            desc                                        class
+#>  <chr>     <chr>           <chr>                                       <chr>
+#> 1 companion NA              This repo contains things I learned throug… proj…
+#> 4 companion lessons-learned This repo contains things I learned throug… repo 
+#> 5 companion titanic         "In this repo, the famous titanic data set… repo 
+#> 8 meta      sandbox84       This repository is a s sandbox repo for th… repo 
 ```
 
 Note that this works if your current working directory is *any*

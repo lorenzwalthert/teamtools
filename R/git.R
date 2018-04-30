@@ -103,7 +103,7 @@ team_check_uncomitted <- function(dir = ".") {
   } else {
     cli::cat_line(
       "For the follwing files of ",
-      "the current branche tips are not identical to their INDEX counterpart:",
+      "the current branch tips are not identical to their INDEX counterpart:",
       col = "red"
     )
    remote_diff
