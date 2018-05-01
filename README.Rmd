@@ -18,8 +18,8 @@ knitr::opts_chunk$set(
 
 # teamtools
 
-The goal of teamtools is to facilitate team work and content organisation 
-if the following directory structure is present:
+`r teamtools::read_local_description()`
+
 ```{bash, eval = FALSE}
 team
 |- project 1
@@ -123,11 +123,7 @@ compiled with Pandoc.
 Projects can also have such descriptions, and they can be read with the above
 command, setting `category = "project"`.
 
-The following description for repos was generated with the command mentioned 
-above:
-
-`r teamtools::read_local_description()`
-
+The description at the top of this readme was generated with this method.
 
 ***
 

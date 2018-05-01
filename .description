@@ -1,9 +1,2 @@
-## This is a header
-
-This is a bullet list:
-
-* bullet 1
-* bulle 2
-* blablabla 
-
-We can also use `codefont`.
+The goal of teamtools is to facilitate team work and content organisation given
+a specific directory structure is present.

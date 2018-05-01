@@ -6,7 +6,7 @@
 # teamtools
 
 The goal of teamtools is to facilitate team work and content
-organisation if the following directory structure is present:
+organisation given a specific directory structure is present.
 
 ``` bash
 team
@@ -134,18 +134,8 @@ will be placed into the README as is before compiled with Pandoc.
 Projects can also have such descriptions, and they can be read with the
 above command, setting `category = "project"`.
 
-The following description for repos was generated with the command
-mentioned above:
-
-## This is a header
-
-This is a bullet list:
-
-  - bullet 1
-  - bulle 2
-  - blablabla
-
-We can also use `codefont`.
+The description at the top of this readme was generated with this
+method.
 
 -----
 
