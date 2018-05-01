@@ -3,7 +3,6 @@
 #' @param desc The return value of [read_description_files()], i.e.
 #'   a tabular description of repos.
 #' @param title_col The column name of `desc` that contains the title to use.
-#' @export
 add_title_to_desc <- function(desc, title_col = "repo") {
   title <- h2(unlist(desc[, title_col]))
   paste(title, desc$desc)

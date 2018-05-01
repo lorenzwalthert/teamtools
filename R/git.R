@@ -50,7 +50,7 @@ git_dirs <- function(dir = ".") {
 #' @export
 #' @seealso [check_unpushed_files()]
 team_check_unpushed <- function(dir = ".") {
-  remote_diff <- map(git_dirs(find_team_root(dir)), check_unpushed_files) %>%
+  remote_diff <- map(git_dirs(dir), check_unpushed_files) %>%
     compact()  %>%
     flatten_dfr()
   if (length(remote_diff) < 1L) {
@@ -95,7 +95,7 @@ check_unpushed_files <- function(dir = ".") {
 #' @seealso [check_unpushed_files()]
 team_check_uncomitted <- function(dir = ".") {
 
-  remote_diff <- map(git_dirs(find_team_root(dir)), check_uncomitted_files) %>%
+  remote_diff <- map(git_dirs(dir), check_uncomitted_files) %>%
     compact() %>%
     flatten_dfr()
   if (length(remote_diff) < 1L) {

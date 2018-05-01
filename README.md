@@ -16,17 +16,74 @@ team
     |- repository 4
 ```
 
-Such a project structure is common for teams working on BitBucket. Every
-repository is technically an independent git repo. If you use another
-remote git client you can anyways organize different repos in projects
-under a team root. Note that a team root is characterized by a directory
-having a `.team` file.
+You can install teamtools from GitHub:
+
+``` r
+remotes::install_github("lorenzwalthert/teamtools")
+```
+
+``` r
+library(teamtools)
+```
+
+The aforementioned project structure is common for teams working on
+BitBucket. Every repository is technically an independent git repo. If
+you use another remote git client you can anyways organize different
+repos in projects under a team root. Note the following additional
+requirements:
+
+  - A team root is characterized by a directory having a `.team` file.
+  - A repository is a directory that is the root of a git repository.
+    You may initialize git but never commit anything, e.g. if the
+    repository is a pure data repository without git lfs.
+  - There must not be any nested git repositories.
+  - All directories directly under the root are project directories and
+    there is only one layer between the team root and the repositories.
+
+# file navigation
+
+You can easily list all repos or projects:
+
+``` r
+ls_repos()
+#> # A tibble: 8 x 3
+#>   repo                   project   parent_path                            
+#>   <chr>                  <chr>     <chr>                                  
+#> 1 lessons-learned        companion /Users/lorenz/datasciencecoursera/lear…
+#> 2 titanic                companion /Users/lorenz/datasciencecoursera/lear…
+#> 3 analysis-communication core      /Users/lorenz/datasciencecoursera/lear…
+#> 4 analysis-raw           core      /Users/lorenz/datasciencecoursera/lear…
+#> 5 data                   core      /Users/lorenz/datasciencecoursera/lear…
+#> 6 meta                   meta      /Users/lorenz/datasciencecoursera/lear…
+#> 7 sandbox84              meta      /Users/lorenz/datasciencecoursera/lear…
+#> 8 teamtools              meta      /Users/lorenz/datasciencecoursera/lear…
+ls_projects()
+#> # A tibble: 3 x 2
+#>   project   parent_path                                                   
+#>   <chr>     <chr>                                                         
+#> 1 companion /Users/lorenz/datasciencecoursera/learning-real-estate-price-…
+#> 2 core      /Users/lorenz/datasciencecoursera/learning-real-estate-price-…
+#> 3 meta      /Users/lorenz/datasciencecoursera/learning-real-estate-price-…
+```
+
+You can open a repo’s RStudio Project, either in the current or a new
+session:
+
+``` r
+open_repo("meta", newSession = FALSE)
+```
+
+Obviously, you can also open all projects:
+
+``` r
+purrr::walk(ls_repos()$repo, open_repo)
+```
 
 # git
 
 `teamtools` helps you to check all repos for uncommitted or staged
 changes and untracked files. I.e. it does a git status across all your
-repos in your team.
+repos in your team:
 
 ``` r
 teamtools::team_check_uncomitted()
@@ -38,7 +95,7 @@ teamtools::team_check_uncomitted()
 ```
 
 You may also want to know which repos’ active branch are out of sync
-with their remote counterpart.
+with their remote counterpart:
 
 ``` r
 teamtools::team_check_unpushed()
@@ -51,7 +108,7 @@ teamtools::team_check_unpushed()
 ```
 
 You can also pull from and push all team repos to their default remote
-branch with `teamtools::team_push()` and `teamtools::team_pull()`.
+branch with `teamtools::team_push()` and `teamtools::team_pull()`:
 
 ``` r
 teamtools::team_pull()
@@ -117,7 +174,7 @@ represent other meta data.
 
 # Utilities
 
-There are a bunch of other utility functions.
+There are a bunch of other utility functions:
 
 ``` r
 find_repo_root()

@@ -21,4 +21,5 @@ Imports:
     magrittr,
     withr,
     git2r,
-    remotes
+    remotes,
+    rstudioapi
