@@ -11,6 +11,7 @@ team_credentials <- function(dir = ".") {
     team_config$ssh$passphrase
   )
 }
+
 #' Read a team's configuration
 #' 
 #' Leverages the `yaml` package to read the configuration of the team.
