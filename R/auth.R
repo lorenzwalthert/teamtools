@@ -12,6 +12,10 @@ team_credentials <- function(dir = ".") {
   )
 }
 
+#' Read a team's configuration
+#' 
+#' Leverages the `yaml` package to read the configuration of the team.
+#' @param dir Any directory under the root.
 read_team_config <- function(dir = ".") {
   root <- find_team_root(dir)
   yaml::read_yaml(file.path(root, ".team.yaml"))
