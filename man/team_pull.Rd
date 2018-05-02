@@ -5,9 +5,9 @@
 \alias{team_push}
 \title{Push to or pull from all remote repos under a team}
 \usage{
-team_pull(credentials, dir = ".")
+team_pull(credentials = team_credentials(), dir = ".")
 
-team_push(credentials, dir = ".")
+team_push(credentials = team_credentials(), dir = ".")
 }
 \arguments{
 \item{credentials}{Credentials passed to \code{fun}, e.g. see \code{\link[git2r:pull]{git2r::pull()}}.}

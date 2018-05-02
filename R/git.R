@@ -5,7 +5,7 @@
 #' @importFrom purrr walk
 #' @importFrom git2r pull push
 #' @export
-team_pull <- function(credentials, dir = ".") {
+team_pull <- function(credentials = team_credentials(), dir = ".") {
   git_dirs <- git_dirs(dir)
 
   walk(git_dirs, communicate_remote, pull, credentials = credentials)
@@ -14,7 +14,7 @@ team_pull <- function(credentials, dir = ".") {
 #' @inheritParams communicate_remote
 #' @rdname team_pull
 #' @export
-team_push <- function(credentials, dir = ".") {
+team_push <- function(credentials = team_credentials(), dir = ".") {
   git_dirs <- git_dirs(dir)
 
   walk(git_dirs, communicate_remote, push, credentials = credentials)
@@ -91,13 +91,15 @@ check_unpushed_files <- function(dir = ".") {
 #' Check all repositories in a team for uncommitted changes
 #' @importFrom purrr map flatten_dfr compact
 #' @param dir Any directory under the team root.
+#' @importFrom purrr invoke
 #' @export
 #' @seealso [check_unpushed_files()]
 team_check_uncomitted <- function(dir = ".") {
 
   remote_diff <- map(git_dirs(dir), check_uncomitted_files) %>%
     compact() %>%
-    flatten_dfr()
+    invoke(rbind, .) %>%
+    as.tibble()
   if (length(remote_diff) < 1L) {
     cli::cat_line("HEADs up to date with INDEXs", col = "green")
   } else {
@@ -123,14 +125,20 @@ check_uncomitted_files <- function(dir = ".") {
     status <- status(repository(dir))
     unstaged <- tibble(
       file = set_null_to(unlist(status$unstaged), character(0)),
+      repo = basename(dir),
+      project = basename(dirname(dir)),
       type = "unstaged"
     )
     staged <- tibble(
       file = set_null_to(unlist(status$staged), character(0)),
+      repo = basename(dir),
+      project = basename(dirname(dir)),
       type = "staged"
     )
     untracked <- tibble(
       file = set_null_to(unlist(status$untracked), character(0)),
+      repo = basename(dir),
+      project = basename(dirname(dir)),
       type = "untracked"
     )
     out <- rbind(unstaged, staged, untracked) %>%

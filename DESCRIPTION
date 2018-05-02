@@ -22,4 +22,5 @@ Imports:
     withr,
     git2r,
     remotes,
-    rstudioapi
+    rstudioapi,
+    yaml
