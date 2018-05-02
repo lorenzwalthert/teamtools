@@ -34,7 +34,8 @@ you use another remote git client you can anyways organize different
 repos in projects under a team root. Note the following additional
 requirements:
 
-  - A team root is characterized by a directory having a `.team` file.
+  - A team root is characterized by a directory having a `.team.yaml`
+    file.
   - A repository is a directory that is the root of a git repository.
     You may initialize git but never commit anything, e.g. if the
     repository is a pure data repository without git lfs.
@@ -113,13 +114,33 @@ You can also pull from and push all team repos to their default remote
 branch with `teamtools::team_push()` and `teamtools::team_pull()`:
 
 ``` r
-teamtools::team_pull()
+teamtools::team_pull(credentials = team_credentials())
 #> Try pulling lessons-learned ✔ 
 #> Try pulling titanic ✔ 
 #> Try pulling data ✔ 
 #> Try pulling meta ✔ 
 #> Try pulling sandbox84 [updated] 85e6da1024..71818fdb5a refs/remotes/origin/master ✔ 
 ```
+
+This works via ssh. The `.team.yaml` contains directives where the
+corresponding keys are stored. You can read them with
+
+``` r
+read_team_config()
+#> $ssh
+#> $ssh$publickey_loc
+#> [1] "~/.ssh/id_rsa.pub"
+#> 
+#> $ssh$privatekey_loc
+#> [1] "~/.ssh/id_rsa"
+#> 
+#> $ssh$passphrase
+#> [1] "character(0)"
+```
+
+And create a corresponding ssh credential object used with `git2r` with
+`team_credentials()`, which is used by `team_push()` and `team_pull()`
+by default.
 
 # README structuring
 
