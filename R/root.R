@@ -21,10 +21,11 @@ find_root_from_object <- function(root_object,
     root_object_name <- substring(root_object, 2)
 
     cli::cat_line(
-      "Can't find the ", root_object_name, " root. Make sure that"
+      "Can't find the ", drop_ext(root_object_name), " root. Make sure that"
     )
     cli::cat_bullet(
-      "File .team exists in the team root directory that contains all projects."
+      "File ",  root_object_name, 
+      " exists in the ",  drop_ext(root_object_name), " root directory."
     )
     cli::cat_bullet(
       "Your working directory is in a sub directory of the team root. ",
@@ -45,7 +46,7 @@ find_root_from_file <- purrr::partial(find_root_from_object,
 #'
 #' @inheritDotParams find_root_from_file
 #' @export
-find_team_root <- purrr::partial(find_root_from_file, ".team")
+find_team_root <- purrr::partial(find_root_from_file, ".team.yaml")
 
 #' Find a root given a directory that must exist there
 #' @inheritDotParams find_root_from_object
