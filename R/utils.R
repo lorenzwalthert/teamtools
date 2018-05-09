@@ -37,3 +37,14 @@ drop_ext <- function(char, ext_sep = ".") {
     map_chr(paste, collapse = ".")
     
 }
+
+write_lines_if_inexistent <- function(lines, file, overwrite = FALSE) {
+  if (!file.exists(file) | overwrite) {
+    writeLines(lines, file)
+    green_tick("Created ", file)
+  } 
+}
+
+green_tick <- function(...) {
+  cli::cat_bullet(..., bullet = "tick", col = "green")
+}
