@@ -30,7 +30,7 @@ set_null_to <- function(test, default) {
 #' @param ext_chr A character 
 #' @importFrom purrr map_chr map
 #' @examples 
-#' teamtools:::drop_ext("a.b.csv)
+#' teamtools:::drop_ext("a.b.csv")
 drop_ext <- function(char, ext_sep = ".") {
   strsplit(char, ext_sep, fixed = TRUE) %>%
     map(~.x[-length(.x)]) %>%

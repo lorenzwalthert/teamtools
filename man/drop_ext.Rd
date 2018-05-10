@@ -14,3 +14,6 @@ drop_ext(char, ext_sep = ".")
 \description{
 Drop everything after the last extension character
 }
+\examples{
+teamtools:::drop_ext("a.b.csv")
+}
