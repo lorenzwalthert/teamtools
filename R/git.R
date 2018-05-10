@@ -45,14 +45,14 @@ git_dirs <- function(dir = ".") {
 
 
 #' Check all repositories in a team for unpushed commits
-#' @importFrom purrr map flatten_chr
+#' @importFrom purrr map invoke
 #' @param dir Any directory under the team root.
 #' @export
 #' @seealso [check_unpushed_files()]
 team_check_unpushed <- function(dir = ".") {
   remote_diff <- map(git_dirs(dir), check_unpushed_files) %>%
     compact()  %>%
-    flatten_dfr()
+    invoke(rbind, .)
   if (length(remote_diff) < 1L) {
     cli::cat_line("Current branches even with upstreams", col = "green")
   } else {
@@ -71,7 +71,7 @@ team_check_unpushed <- function(dir = ".") {
 #' @param dir A directory to check for unpushed changes.
 #' @importFrom git2r branches repository
 #' @export
-#' @seealso [team_check_unpushed()]
+#' @seealso [team_check_uncommitted()]
 check_unpushed_files <- function(dir = ".") {
   if (length(branches(repository(dir))) > 0) {
     file <- withr::with_dir(dir,
@@ -79,7 +79,12 @@ check_unpushed_files <- function(dir = ".") {
         intern = TRUE
     ))
     if (length(file) < 1L) return(NULL)
-    tibble(file, dir)
+    tibble(
+      file = file, 
+      repo = basename(dir),
+      project = basename(dirname(dir)),
+      path = file.path(dir, file)
+    )
   } else {
     NULL
   }
@@ -88,15 +93,17 @@ check_unpushed_files <- function(dir = ".") {
 
 
 
-#' Check all repositories in a team for uncommitted changes
+#' Check all repositories in a team for their git status
+#' 
+#' 
 #' @importFrom purrr map flatten_dfr compact
 #' @param dir Any directory under the team root.
 #' @importFrom purrr invoke
 #' @export
-#' @seealso [check_unpushed_files()]
-team_check_uncomitted <- function(dir = ".") {
+#' @seealso [check_status()]
+team_check_status <- function(dir = ".") {
 
-  remote_diff <- map(git_dirs(dir), check_uncomitted_files) %>%
+  remote_diff <- map(git_dirs(dir), check_status) %>%
     compact() %>%
     invoke(rbind, .) %>%
     as.tibble()
@@ -142,8 +149,8 @@ check_uncomitted_files <- function(dir = ".") {
       type = "untracked"
     )
     out <- rbind(unstaged, staged, untracked) %>%
-      as.tibble() %>%
-      add_column(dir = dir)
+      as.tibble() 
+    out$dir <- file.path(dir, out$file)
     if (nrow(out) < 1L) return(NULL)
   } else {
     out <- NULL

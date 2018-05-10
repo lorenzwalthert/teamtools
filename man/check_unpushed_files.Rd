@@ -13,5 +13,5 @@ check_unpushed_files(dir = ".")
 Check a directory for unpushed changes
 }
 \seealso{
-\code{\link[=team_check_unpushed]{team_check_unpushed()}}
+\code{\link[=team_check_uncommitted]{team_check_uncommitted()}}
 }
