@@ -78,12 +78,17 @@ purrr::walk(ls_repos()$repo, open_repo)
 untracked files. I.e. it does a git status across all your repos in your 
 team:
 ```{r, eval = FALSE}
-teamtools::team_check_uncomitted()
-#> For the follwing files of the current branch tips are not identical to their INDEX counterpart:
-#> # A tibble: 1 x 3
-#>   file             type     dir                                                                                   
-#>   <chr>            <chr>    <chr>                                                                                 
-#> 1 pull-all-draft.R unstaged /Users/lorenz/datasciencecoursera/learning-real-estate-price-structures/meta/sandbox84
+teamtools::team_check_status()
+#> # A tibble: 7 x 5
+#>   file                                   repo            project   type   dir   
+#>   <chr>                                  <chr>           <chr>     <chr>  <chr> 
+#> 1 05-keras.Rmd                           lessons-learned companion untra… /User…
+#> 2 bookdown-demo.Rmd                      lessons-learned companion untra… /User…
+#> 3 02-analysis/02-model-decision-tree.Rmd titanic         companion untra… /User…
+#> 4 pull-all-draft.R                       sandbox84       meta      unsta… /User…
+#> 5 R/git.R                                teamtools       meta      unsta… /User…
+#> 6 README.Rmd                             teamtools       meta      unsta… /User…
+#> 7 README.md                              teamtools       meta      unsta… /User…
 ```
 
 You may also want to know which repos' active branch are out of sync with their
@@ -91,11 +96,11 @@ remote counterpart:
 ```{r, eval = FALSE}
 teamtools::team_check_unpushed()
 #> For the follwing files of the current branches are not even with upstreams:
-#> # A tibble: 2 x 2
-#>   file       dir                                                                              
-#>   <chr>      <chr>                                                                            
-#> 1 README.Rmd /Users/lorenz/datasciencecoursera/learning-real-estate-price-structures/meta/meta
-#> 2 README.md  /Users/lorenz/datasciencecoursera/learning-real-estate-price-structures/meta/meta
+#> # A tibble: 1 x 4
+#>   file    repo      project path                                                                 
+#>   <chr>   <chr>     <chr>   <chr>                                                                
+#>  1 R/git.R teamtools meta    /Users/lorenz/…
+
 ```
 
 You can also pull from and push all team repos to their default remote branch
@@ -118,6 +123,19 @@ read_team_config()
 And create a corresponding ssh credential object used with `git2r` with
 `team_credentials()`, which is used by `team_push()` and `team_pull()` by 
 default.
+
+# common `.Rprofile`
+
+The idea is to use a common `.Rprofile` for all repos under a team root. 
+Technically, you can simply source the `.Rprofile` from the team root in each 
+repository's `.Rprofile`, which is - in simple terms - what 
+`teamtools::init_team_repo()` does.
+```{r}
+cat(teamtools:::contents_rprofile(), sep = "\n")
+```
+
+In addition, `teamtools::init_team_repo()` also initializes the `.description`
+file (see below).
 
 # README structuring
 
