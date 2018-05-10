@@ -13,5 +13,5 @@ check_status(dir = ".")
 Check a directory for uncomitted changes
 }
 \seealso{
-\code{\link[=team_check_status]{team_check_status()}}
+\code{\link[=team_check_unpushed]{team_check_unpushed()}}
 }

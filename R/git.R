@@ -126,7 +126,7 @@ team_check_status <- function(dir = ".") {
 #' @importFrom git2r repository status
 #' @export
 #' @seealso [team_check_unpushed()]
-check_uncomitted_files <- function(dir = ".") {
+check_status <- function(dir = ".") {
 
   if (length(branches(repository(dir))) > 0) {
     status <- status(repository(dir))
