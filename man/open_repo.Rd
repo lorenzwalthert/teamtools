@@ -4,10 +4,12 @@
 \alias{open_repo}
 \title{Open an RStudio Project from a repository}
 \usage{
-open_repo(repo = "meta", project = NULL, dir = ".", newSession = TRUE)
+open_repo(repo = "meta", n = 1, project = NULL, dir = ".",
+  newSession = TRUE)
 }
 \arguments{
-\item{repo}{A character vector of length one with a repository name.}
+\item{repo}{A character vector of length one with a repository name. Fixed
+regex are allowed as long as they are unique.}
 
 \item{project}{A character vector of length one with a project name.
 Can be left \code{NULL} if the repo name is unique accros all projects.}
