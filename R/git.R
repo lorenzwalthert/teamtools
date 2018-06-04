@@ -17,14 +17,21 @@ team_pull <- function(credentials = team_credentials(), dir = ".") {
 team_push <- function(credentials = team_credentials(), dir = ".") {
   git_dirs <- git_dirs(dir)
 
-  walk(git_dirs, communicate_remote, push, credentials = credentials)
+  walk(git_dirs, communicate_remote, push, 
+    credentials = credentials, communicate_result = FALSE
+  )
 }
 
 push <- function(dir, ...) {
   if (!is.null(check_unpushed_files(dir@path))) {
     git2r::push(dir, ...)
+    cat("Pushed new ref.")
+    cli::cat_bullet(bullet = "info", col = "green")
+    
   } else {
-    cat("Everything up to date ")
+    cat("Everything up to date.")
+    cli::cat_bullet(bullet = "tick", col = "green")
+    
   }
 }
 
@@ -33,11 +40,14 @@ push <- function(dir, ...) {
 #' @param dir A directory.
 #' @param fun A function to apply. Either pull or push.
 #' @param credentials Credentials passed to `fun`, e.g. see [git2r::pull()].
-communicate_remote <- function(dir, fun = pull, credentials = NULL) {
+communicate_remote <- function(dir, 
+                               fun = pull, 
+                               credentials = NULL, 
+                               communicate_result = TRUE) {
   if (length(branches(repository(dir))) > 0) {
     cat("Try ", deparse(substitute(fun)), "ing ", basename(dir), ": ", sep = "")
     fun(repository(dir), credentials = credentials)
-    cli::cat_bullet(bullet = "tick", col = "green")
+    if (communicate_result) cli::cat_bullet(bullet = "tick", col = "green")
   }
 }
 
