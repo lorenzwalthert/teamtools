@@ -20,6 +20,14 @@ team_push <- function(credentials = team_credentials(), dir = ".") {
   walk(git_dirs, communicate_remote, push, credentials = credentials)
 }
 
+push <- function(dir, ...) {
+  if (!is.null(check_unpushed_files(dir@path))) {
+    git2r::push(dir, ...)
+  } else {
+    cat("Everything up to date ")
+  }
+}
+
 #' Communicate with a remote
 #'
 #' @param dir A directory.
@@ -27,7 +35,7 @@ team_push <- function(credentials = team_credentials(), dir = ".") {
 #' @param credentials Credentials passed to `fun`, e.g. see [git2r::pull()].
 communicate_remote <- function(dir, fun = pull, credentials = NULL) {
   if (length(branches(repository(dir))) > 0) {
-    cat("Try ", deparse(substitute(fun)), "ing ", basename(dir), " ", sep = "")
+    cat("Try ", deparse(substitute(fun)), "ing ", basename(dir), ": ", sep = "")
     fun(repository(dir), credentials = credentials)
     cli::cat_bullet(bullet = "tick", col = "green")
   }
