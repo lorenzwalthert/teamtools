@@ -44,11 +44,10 @@ communicate_remote <- function(dir,
                                fun = pull, 
                                credentials = NULL, 
                                communicate_result = TRUE) {
-  if (length(branches(repository(dir))) > 0) {
-    cat("Try ", deparse(substitute(fun)), "ing ", basename(dir), ": ", sep = "")
-    fun(repository(dir), credentials = credentials)
-    if (communicate_result) cli::cat_bullet(bullet = "tick", col = "green")
-  }
+
+  cat("Try ", deparse(substitute(fun)), "ing ", basename(dir), ": ", sep = "")
+  fun(repository(dir), credentials = credentials)
+  if (communicate_result) cli::cat_bullet(bullet = "tick", col = "green")
 }
 
 #' Get all git directories under a team root
