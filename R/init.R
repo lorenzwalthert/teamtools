@@ -18,6 +18,7 @@ init_team_repo_local <- function(load_file) {
     "This is a minimal description of the repo.", ".description"
   )
   write_lines_if_inexistent(contents_rprofile(load_file), ".Rprofile")
+  write_lines_if_inexistent(contents_gitignore(), ".gitignore")
 }
 
 contents_rprofile <- function(load_file) {
@@ -38,4 +39,8 @@ contents_rprofile <- function(load_file) {
     '}', 
     glue::glue('options(teamtools.load_file = "{load_file}")')
   )
+}
+
+contents_gitignore <- function(ignore = c(".Rhistory", ".Rproj.user")) {
+  ignore
 }
