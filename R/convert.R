@@ -11,6 +11,7 @@ add_title_to_desc <- function(desc, title_col = "repo") {
 h_template <- function(n, ...) {
   paste0(paste(rep("#", n), collapse = ""), " ", ..., "\n")
 }
+
 h1 <- purrr::partial(h_template, n = 1)
 h2 <- purrr::partial(h_template, n = 2)
 
