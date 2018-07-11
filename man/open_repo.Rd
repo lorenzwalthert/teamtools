@@ -9,7 +9,10 @@ open_repo(repo = "meta", n = 1, project = NULL, dir = ".",
 }
 \arguments{
 \item{repo}{A character vector of length one with a repository name. Fixed
-regex are allowed as long as they are unique.}
+regex (i.e. substring matches) are allowed.}
+
+\item{n}{The number upper bound of repos to open. If \code{NULL}, all will be
+opened.}
 
 \item{project}{A character vector of length one with a project name.
 Can be left \code{NULL} if the repo name is unique accros all projects.}

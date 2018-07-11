@@ -6,12 +6,12 @@
 #' @param ... Parameters passed to [devtools::load_all()].
 #' @export
 load_all <- function(load_file = getOption("teamtools.load_file"), ...) {
-  if (!file.exists(load_file)) abort()
     
   if (
     !file.exists(here::here("DESCRIPTION")) || 
     desc::desc_get_field("Type") != "Package"
   ) {
+    if (!file.exists(load_file)) rlang::abort("load file does not exist.")
     rstudioapi::documentSaveAll()
     cli::cat_bullet("Sourcing ", load_file, bullet = "tick", col = "green")
     source(load_file)

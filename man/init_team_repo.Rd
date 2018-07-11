@@ -4,10 +4,12 @@
 \alias{init_team_repo}
 \title{Init a teamtools repo}
 \usage{
-init_team_repo(dir = ".")
+init_team_repo(dir = ".", load_file = ".Rprofile")
 }
 \arguments{
 \item{dir}{The directory of the directory that is a repository.}
+
+\item{load_file}{A file to load when \code{teamtools::load_all()} is called.}
 }
 \description{
 Does some initial house keeping, i.e:
