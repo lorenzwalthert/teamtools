@@ -1,0 +1,4 @@
+Name: Load all
+Description: Source a loader file
+Binding: load_all
+Interactive: true

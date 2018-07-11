@@ -23,4 +23,7 @@ Imports:
     git2r,
     remotes,
     rstudioapi,
-    yaml
+    yaml,
+    desc
+Suggests: 
+    devtools
