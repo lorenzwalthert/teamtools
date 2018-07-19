@@ -23,7 +23,7 @@ team_push <- function(credentials = team_credentials(), dir = ".") {
 }
 
 push <- function(dir, ...) {
-  if (!is.null(check_unpushed_files(dir@path))) {
+  if (!is.null(check_unpushed_files(dir$path))) {
     git2r::push(dir, ...)
     cat("Pushed new ref.")
     cli::cat_bullet(bullet = "info", col = "green")
