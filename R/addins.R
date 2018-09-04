@@ -12,7 +12,9 @@ load_all <- function(load_file = getOption("teamtools.load_file"), ...) {
   if (is_package) {
     cli::cat_bullet("Executing devtools::load_all(...)", bullet = "tick", col = "green")
     if ("devtools" %in% installed.packages()[, "Package"]) {
-      rstudioapi::documentSaveAll()
+      if (rstudioapi::isAvailable()) {
+        rstudioapi::documentSaveAll()
+      }
       devtools::load_all(...)
     } else {
       rlang::abort(paste0(
@@ -28,7 +30,9 @@ load_all <- function(load_file = getOption("teamtools.load_file"), ...) {
     }
     if (!file.exists(load_file)) rlang::abort("load file does not exist.")
     
-    rstudioapi::documentSaveAll()
+    if (rstudioapi::isAvailable()) {
+      rstudioapi::documentSaveAll()
+    }
     cli::cat_bullet("Sourcing ", load_file, bullet = "tick", col = "green")
     source(load_file)
   }
