@@ -56,8 +56,10 @@ communicate_remote <- function(dir,
 #' @export
 git_dirs <- function(dir = ".") {
   root <- find_team_root(dir)
-  dirs <- list.dirs(root, recursive = TRUE)
-  dirname(dirs[basename(dirs) == ".git"])
+  proj_dirs <- list.dirs(root, recursive = FALSE)
+  repo_dirs <- list.dirs(proj_dirs, recursive = FALSE)
+  repo_files <- list.dirs(repo_dirs, recursive = FALSE)
+  dirname(repo_files[basename(repo_files) == ".git"])
 }
 
 
