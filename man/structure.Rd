@@ -19,6 +19,6 @@ Further:
 \item Put a .description file in every repo that you want to describe and add
 a markdown-like description to it.
 \item Paste the contents of description into the README using
-\code{r paste(readLines(".description"), collapse = '\n')}.
+\verb{r paste(readLines(".description"), collapse = '\\n')}.
 }
 }

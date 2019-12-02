@@ -7,15 +7,16 @@
 find_root_from_file(...)
 }
 \arguments{
-\item{...}{Arguments passed on to \code{find_root_from_object}
-\describe{
-  \item{root_object}{A file or directory in a directory that qualifies the
+\item{...}{
+  Arguments passed on to \code{\link[=find_root_from_object]{find_root_from_object}}
+  \describe{
+    \item{\code{root_object}}{A file or directory in a directory that qualifies the
 latter as a root.}
-  \item{dir}{The directory to start the search from.}
-  \item{object_finder}{A function that is applied to the \code{root_object}. If
+    \item{\code{dir}}{The directory to start the search from.}
+    \item{\code{object_finder}}{A function that is applied to the \code{root_object}. If
 the root object is a file, use \code{\link[rprojroot:has_file]{rprojroot::has_file()}}, if it is a
 directory, use \code{\link[rprojroot:has_dir]{rprojroot::has_dir()}}.}
-}}
+  }}
 }
 \description{
 Find a root given a directory that must exist there
