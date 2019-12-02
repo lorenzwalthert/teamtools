@@ -43,6 +43,7 @@ open_repo <- function(repo = "meta",
       )
       return(invisible(TRUE))
     } else {
+      cli::cli_text("\nOpening projects {.code {basename(matching_repo[n])}}.")
       walk(matching_repo[n], ~ {
         rstudioapi::openProject(.x, newSession = newSession)
         # need to wait a bit otherwise the first repo gets opened multiple times
