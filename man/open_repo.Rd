@@ -12,7 +12,8 @@ regex (i.e. substring matches) are allowed.}
 
 \item{n}{For partial matches, the ID of repos to open in parallel. Can be a
 single integer, a sequence (\code{3:7}) or a vector (\code{c(2, 5)}). For \code{n = 1},
-the exact match is opened.}
+the exact match is opened (if there is one) otherwise the best regex fit is
+opened.}
 
 \item{project}{A character vector of length one with a project name.
 Can be left \code{NULL} if the repo name is unique across all projects.}
