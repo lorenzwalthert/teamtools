@@ -14,7 +14,7 @@ RoxygenNote: 6.0.1.9000
 Imports: 
     rprojroot,
     glue,
-    cli,
+    cli (>= 1.9.9.9000),
     purrr,
     rlang,
     tibble,

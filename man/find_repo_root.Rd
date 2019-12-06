@@ -7,10 +7,11 @@
 find_repo_root(...)
 }
 \arguments{
-\item{...}{Arguments passed on to \code{find_root_from_dir}
-\describe{
-  \item{}{}
-}}
+\item{...}{
+  Arguments passed on to \code{\link[=find_root_from_dir]{find_root_from_dir}}
+  \describe{
+    \item{\code{}}{}
+  }}
 }
 \description{
 Simly go up the tree until a \code{.git} folder is found.

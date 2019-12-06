@@ -4,8 +4,12 @@
 \alias{communicate_remote}
 \title{Communicate with a remote}
 \usage{
-communicate_remote(dir, fun = pull, credentials = NULL,
-  communicate_result = TRUE)
+communicate_remote(
+  dir,
+  fun = pull,
+  credentials = NULL,
+  communicate_result = TRUE
+)
 }
 \arguments{
 \item{dir}{A directory.}

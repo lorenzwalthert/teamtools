@@ -7,10 +7,11 @@
 find_team_root(...)
 }
 \arguments{
-\item{...}{Arguments passed on to \code{find_root_from_file}
-\describe{
-  \item{}{}
-}}
+\item{...}{
+  Arguments passed on to \code{\link[=find_root_from_file]{find_root_from_file}}
+  \describe{
+    \item{\code{}}{}
+  }}
 }
 \description{
 Find a team root
